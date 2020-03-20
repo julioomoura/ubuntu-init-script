@@ -30,6 +30,7 @@ sudo snap install --classic slack
 sudo snap install spotify
 sudo snap install discord
 sudo snap install vlc
+sudo snap install zoom
 sudo snap install postman
 
 
