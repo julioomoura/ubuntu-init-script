@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Pacotes apt
-apt_packages =(vim git curl zip unzip snapd snapd-xdg-open ubuntu-restricted-extras gparted)
+apt_packages=(vim git curl zip unzip snapd snapd-xdg-open ubuntu-restricted-extras gparted)
 
 for p in "${apt_packages[@]}"
 do
