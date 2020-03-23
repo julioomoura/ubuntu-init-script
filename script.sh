@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Pacotes apt
-apt_packages=(vim git curl zip unzip snapd snapd-xdg-open ubuntu-restricted-extras gparted gnome-tweak-tool apt-transport-https ca-certificates curl software-properties-common)
+apt_packages=(vim git curl zip unzip snapd snapd-xdg-open ubuntu-restricted-extras gparted gnome-tweak-tool apt-transport-https ca-certificates software-properties-common tmux)
 
 sudo apt update && sudo apt dist-upgrade -y
 sudo apt autoclean
