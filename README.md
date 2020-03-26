@@ -8,4 +8,5 @@ Using **deb**, **apt** and **snap** packages. Some of them are:
 - etc...
 
 ## Running
+To run the script, open the terminal, go to the repo directory and run the command:
 > ./script.sh
