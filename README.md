@@ -6,3 +6,6 @@ Using **deb**, **apt** and **snap** packages. Some of them are:
 - Git
 - Curl
 - etc...
+
+## Running
+> ./script.sh
