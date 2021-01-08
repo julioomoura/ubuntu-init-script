@@ -20,7 +20,7 @@ sudo usermod -aG docker ${USER}
 sudo setfacl -m user:$USER:rw /var/run/docker.sock
 
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
+sudo chmod +x /usr/local/bin/docker-compose
 
 # Chrome
 
@@ -32,14 +32,14 @@ sudo dpkg -i $DIRETORIO_DOWNLOADS/*.deb
 # SDKMan e Java 8 
 curl -s "https://get.sdkman.io" | bash
 source $HOME/.sdkman/bin/sdkman-init.sh
-sdk install java 8.0.242.hs-adpt
+sdk install java 8.0.275.hs-adpt
 
 # Node 12
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install -y nodejs
 
 # Snap
-sudo snap install --classic vscode
+sudo snap install --classic code
 sudo snap install --classic slack
 sudo snap install spotify
 sudo snap install discord
