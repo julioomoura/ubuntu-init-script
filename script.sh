@@ -33,6 +33,7 @@ sudo dpkg -i $DIRETORIO_DOWNLOADS/*.deb
 curl -s "https://get.sdkman.io" | bash
 source $HOME/.sdkman/bin/sdkman-init.sh
 sdk install java 8.0.275.hs-adpt
+sdk install maven
 
 # Node 12
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
