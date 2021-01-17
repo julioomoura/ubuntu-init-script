@@ -11,7 +11,7 @@ Using **deb**, **apt** and **snap** packages to install softwares like:
 ## Running
 
 ```sh
-git clone git@github.com:julioomoura/ubuntu-init-script.git
+git clone https://github.com/julioomoura/ubuntu-init-script.git
 cd ubuntu-init-script
 chmod +x script.sh
 ./script.sh
