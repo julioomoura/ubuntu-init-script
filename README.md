@@ -1,12 +1,18 @@
-# Script to run after installing Ubuntu
-Using **deb**, **apt** and **snap** packages. Some of them are:
--  Google Chrome
-- Slack
-- Vim
-- Git
-- Curl
-- etc...
+# Ubuntu Setup Script
+Using **deb**, **apt** and **snap** packages to install softwares like:
+
+- SDKMAN (Java 8 and Maven)
+- Docker
+- NodeJS 12
+- Postman
+- Dbeaver
+- and others...
 
 ## Running
-To run the script, open the terminal, go to the repo directory and run the command:
-> ./script.sh
+
+```sh
+git clone git@github.com:julioomoura/ubuntu-init-script.git
+cd ubuntu-init-script
+chmod +x script.sh
+./script.sh
+```
