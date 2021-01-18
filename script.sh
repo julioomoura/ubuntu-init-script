@@ -39,7 +39,7 @@ sdk install java 8.0.275.hs-adpt
 sdk install maven
 
 # Snap
-snap_packages=("--classic code" "--classic slack" spotify discord vlc postman dbeaver-ce)
+snap_packages=("--classic code" "--classic slack" "intellij-idea-community --classic" spotify discord vlc postman dbeaver-ce)
 
 for p in "${apt_packages[@]}"
 do
