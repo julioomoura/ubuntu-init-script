@@ -41,7 +41,7 @@ sdk install maven
 # Snap
 snap_packages=("--classic code" "--classic slack" "intellij-idea-community --classic" spotify discord vlc postman dbeaver-ce)
 
-for p in "${apt_packages[@]}"
+for p in "${snap_packages[@]}"
 do
  sudo snap install $p
 done
