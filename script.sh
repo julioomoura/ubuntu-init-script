@@ -3,11 +3,10 @@
 DOWNLOADS_DIRECTORY="$HOME/Downloads/"
 
 # Pacotes apt
-apt_packages=(vim git curl zip unzip gparted gnome-tweak-tool flameshot flatpak apt-transport-https brave-browser)
-
-
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+apt_packages=(
+    vim git curl zip unzip gparted gnome-tweak-tool flameshot flatpak apt-transport-https
+    ca-certificates gnupg lsb-release
+)
 
 sudo apt update && sudo apt dist-upgrade -y
 sudo apt autoclean
@@ -68,3 +67,17 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'flameshot'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command '/usr/bin/flameshot gui'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding 'Print'
+
+# Change git init default branch name to main
+git config --global init.defaultBranch main
+
+# Brave browser
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo apt install brave-browser
+
+# Docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
