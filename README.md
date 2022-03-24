@@ -1,12 +1,5 @@
 # Ubuntu Setup Script
-Using **deb**, **apt** and **snap** packages to install softwares like:
-
-- SDKMAN (Java 8 and Maven)
-- Docker
-- NodeJS 12
-- Postman
-- Dbeaver
-- and others...
+Using **deb**, **apt** and **flapak** packages to install softwares like:
 
 ## Running
 
