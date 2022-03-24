@@ -1,18 +1,17 @@
 #!/bin/bash
 
+DOWNLOADS_DIRECTORY="$HOME/Downloads/"
+
 # Pacotes apt
-apt_packages=(vim git curl zip unzip nodejs snapd snapd-xdg-open ubuntu-restricted-extras gparted gnome-tweak-tool apt-transport-https ca-certificates software-properties-common tmux flameshot docker-ce)
+apt_packages=(vim git curl zip unzip gparted gnome-tweak-tool flameshot flatpak apt-transport-https brave-browser)
+
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
 sudo apt update && sudo apt dist-upgrade -y
 sudo apt autoclean
 sudo apt autoremove -y
-
-# Docker Repository 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-
-# Node 12
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 
 for p in "${apt_packages[@]}"
 do
@@ -22,30 +21,50 @@ done
 sudo usermod -aG docker ${USER}
 sudo setfacl -m user:$USER:rw /var/run/docker.sock
 
-# Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# .debs
+declare -A urls
 
-# Chrome
-URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-DIRETORIO_DOWNLOADS="$HOME/Downloads/"
-wget -c "$URL_GOOGLE_CHROME" -P "$DIRETORIO_DOWNLOADS"
-sudo dpkg -i $DIRETORIO_DOWNLOADS/*.deb
+urls=(
+    ["chrome"]="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" 
+    ["vscode"]="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    ["slack"]="https://downloads.slack-edge.com/releases/linux/4.24.0/prod/x64/slack-desktop-4.24.0-amd64.deb"
+    ["discord"]="https://discord.com/api/download?platform=linux&format=deb"
+    ["zoom"]="https://zoom.us/client/latest/zoom_amd64.deb"
+    ["insomnia"]="https://updates.insomnia.rest/downloads/ubuntu/latest?&app=com.insomnia.app"
+)
 
-# SDKMan e Java 8 
+for u in "${!urls[@]}"
+do
+  wget -c ${urls[$u]} -P "$DOWNLOADS_DIRECTORY" -O "${u}.deb"
+done
+sudo dpkg -i $DOWNLOADS_DIRECTORY/*.deb
+
+# NVM
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+nvm install --lts  
+
+# SDKMan
 curl -s "https://get.sdkman.io" | bash
 source $HOME/.sdkman/bin/sdkman-init.sh
-sdk install java 8.0.275.hs-adpt
+sdk install java
 sdk install maven
 
-# Snap
-snap_packages=("--classic code" "--classic slack" "intellij-idea-community --classic" spotify discord vlc postman dbeaver-ce)
+# Flatpak
 
-for p in "${snap_packages[@]}"
+flatpak_packages=("com.spotify.Client" "org.videolan.VLC" " com.getpostman.Postman" "com.obsproject.Studio")
+
+for p in "${flatpak_packages[@]}"
 do
- sudo snap install $p
+    flatpak install flathub $p -y
 done
 
 sudo apt update && sudo apt dist-upgrade -y
 sudo apt autoclean
 sudo apt autoremove -y
+
+# Set flameshot as print-screen shortcut
+gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot '[]'
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'flameshot'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command '/usr/bin/flameshot gui'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding 'Print'
